@@ -1,57 +1,59 @@
 
-# from django.contrib import messages
-from django.shortcuts import render
-# from . import models
+from django.contrib import messages
+from django.shortcuts import render,redirect
+from . import models
 # from .forms import Emailc,contactForm
 # Create your views here.
 
 def main(request):
-    # Offrs = []
-    # if request.user.is_authenticated:
-    #     id_use = request.user.id
-    #     name = request.user.username
-    # else:
-    #     id_use = 0
-    #     name = None
-    # banner2 = models.Image_trend_2.objects.all()
-    # banner = models.image_u.objects.first()
-    # category = models.category.objects.all()
-    # product_all = models.Product.objects.all()
-    # if request.user.is_authenticated:
+    Offrs = []
+    if request.user.is_authenticated:
+        id_use = request.user.id
+        name = request.user.username
+    else:
+        id_use = 0
+        name = None
+    ABrands = models.BrandMobile.objects.all()
+    jamsabad = models.jamsabad.objects.all()
+    banner2 = models.Image_trend_2.objects.all()
+    banner = models.image_u.objects.first()
+    category = models.category.objects.all()
+    product_all = models.Product.objects.all()
+    if request.user.is_authenticated:
         
-    #     sabad = len(models.sabad.objects.filter(id_user=request.user.id))
-    #     ino = len(models.interest.objects.filter(id_user=request.user.id))
-    # else:
-    #     sabad = 0
-    #     ino = 0
-    # saba = models.sabad.objects.all()
-    # brands = models.Brand.objects.all()
+        sabad = len(models.sabad.objects.filter(id_user=request.user.id))
+        ino = len(models.interest.objects.filter(id_user=request.user.id))
+    else:
+        sabad = 0
+        ino = 0
+    saba = models.sabad.objects.all()
+    brands = models.Brand.objects.all()
     
-    # for e in models.Product.objects.all():
-    #     if e.price_offer != None:
+    for e in models.Product.objects.all():
+        if e.price_offer != None:
             
             
-    #         Offrs += models.Product.objects.filter(name= e)
-    # if request.method == "POST":
-    #     if request.user.is_authenticated:
-    #         models.contact.objects.create(textmessage=request.POST['message'],username=request.user.username)
-    #         messages.success(request,"پیام شما در سیستم ثبت شد پس از پاسخ داده شدن به پیام شما در پروفایل کاربری نمایش داده میشود")
-    #     else:
-    #         messages.warning(request,".شما لاگین نکردید برای تماس با ما از منو لاگین کنید")
-    #         redirect('/')
+            Offrs += models.Product.objects.filter(name= e)
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            models.contact.objects.create(textmessage=request.POST['message'],username=request.user.username)
+            messages.success(request,"پیام شما در سیستم ثبت شد پس از پاسخ داده شدن به پیام شما در پروفایل کاربری نمایش داده میشود")
+        else:
+            messages.warning(request,".شما لاگین نکردید برای تماس با ما از منو لاگین کنید")
+            redirect('/')
 
-    # else:
+    else:
         
-    #     redirect('/')
-
+        redirect('/')
+    
     return render(request,
     "main.html"
-    # ,
-    # {"name":name,"data_banner":banner2,"id_use":id_use,"ofpr":Offrs,
-    # "category":category,"allp":product_all,
-    # "banner":banner,"brand":brands,
-    # "ino":ino,"sabad":sabad,
-    # "saba":saba}
+    ,
+    {"name":name,"data_banner":banner2,"id_use":id_use,"ofpr":Offrs,
+    "category":category,"allp":product_all,
+    "banner":banner,"brand":brands,
+    "ino":ino,"sabad":sabad,
+    "saba":saba,"Brands":ABrands,"jamsabad":jamsabad}
     )
 
 

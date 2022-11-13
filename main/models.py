@@ -35,13 +35,13 @@ class Product(models.Model):
     picture4 = models.ImageField(_("عکس جزییات"),upload_to='ProductImage/picture4')
     vip = models.CharField(_("محصول ویژه"),max_length=20,default="no",choices=[("no","خیر"),("yes","بله")])
     price_offer = models.ForeignKey(Offer,on_delete = models.CASCADE,blank=True,null=True,default=0)
-    category = models.ForeignKey("category",on_delete=models.CASCADE)
+    category = models.ForeignKey("BrandMobile",on_delete=models.CASCADE)
     star = models.CharField(_("امتیاز به ستاره"),max_length=25,choices=NUMBERS)
     caption = models.TextField(_("معرفی جزیَی"),)
     detail = models.TextField(_("معرفی دقیق"),)
     buyers = models.IntegerField(_("تعداد فروش"),default=0)
     view = models.IntegerField(_("تعداد بازدید"),default=0)
-
+    mojood = models.CharField(max_length=20,default="موجود",choices=[("موجود","ناموجود")])
     def __str__(self):
         return str(self.name)
 
@@ -68,16 +68,21 @@ class Email(models.Model):
         return str(self.Email)
 # category
 class category(models.Model):
-    name = models.CharField(_("اسم "),max_length=255)
-    image = models.ImageField(_("عکس "),upload_to="category")
+    nameFa = models.CharField(_("اسم "),max_length=255)
+    nameEn = models.CharField(_("اسم انگلیسی"),max_length=255)
+    def __str__(self):
+        return self.nameEn
+class BrandMobile(models.Model):
+    nameEn = models.CharField(_("اسم انگلیسی"),max_length=255)
+
     Tpost = models.IntegerField(_("تعداد پست"),default=0)
+    image = models.ImageField(_("عکس "),upload_to="category")
+    name = models.CharField(_("اسم "),max_length=255)
+    category = models.ForeignKey(category, on_delete=models.CASCADE)
+    
     def __str__(self):
         return self.name
-    class Meta:
-        db_table = ''
-        managed = True
-        verbose_name = ' دسته بندی ها'
-        verbose_name_plural = 'دسته بندی ها'
+
 # image trend 2
 class Image_trend_2(models.Model):
     image1 = models.ImageField(_("عکس اولی"),upload_to="main/pic/1")
@@ -122,13 +127,9 @@ class sabad(models.Model):
     p2 = models.CharField(max_length=255)
 class jamsabad(models.Model):
     jam = models.IntegerField(blank=True,null=True)
-
     id_user = models.IntegerField()
-
-    class Meta:
-        verbose_name = _("jam")
-        verbose_name_plural = _("jam sabad")
-
+    # def __str__(self):
+    #     return self.jam
 class Brand(models.Model):
     name = models.CharField(_("نام"),max_length=200)
     image = models.ImageField(_("عکس برند"),upload_to="brands")
@@ -155,14 +156,14 @@ from django.db.models.signals import post_save,post_delete
 @receiver(post_save,sender=Product)
 def add_to_category(sender,instance,created,**kwargs):
     if created:
-        b = category.objects.get(id=instance.category.id)
+        b = BrandMobile.objects.get(id=instance.category.id)
         b.Tpost += 1
         b.save()
 
 
 @receiver(post_delete,sender=Product)
 def delete_category(sender,instance,**kwargs):
-    b = category.objects.get(id=instance.category.id)
+    b = BrandMobile.objects.get(id=instance.category.id)
     b.Tpost -= 1
     b.save()
 

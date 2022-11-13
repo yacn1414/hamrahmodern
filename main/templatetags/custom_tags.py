@@ -43,8 +43,11 @@ def jam2(id_use, *args, **kwargs):
 @register.simple_tag
 def res(id_use, *args, **kwargs):
     if id_use :
-        a = jamsabad.objects.get(id_user=id_use)
-        return f"{a.jam:,}"
+        a = jamsabad.objects.filter(id_user=id_use)
+        count = 0
+        for mmd in a:
+            count += mmd.jam
+        return f"{count:,}"
 @register.simple_tag
 def nerkhasli(id_use, *args, **kwargs):
     if id_use :
