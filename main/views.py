@@ -98,44 +98,43 @@ def main(request):
 #     else:
 #         messages.info(request,"شما عضو سایت نشدید")
 #         return redirect('/')
-# def sabad(request,id=0):
-#     if request.user.is_authenticated:
+def sabad(request,id=0):
 
-#         if request.user.username:
-#             name = request.user.username
-#         else:
-#             name = None
 
-#         if request.method == "POST":
-            
-#             if request.user.is_authenticated:
-#                 if models.sabad.objects.filter(id_user=request.user.id,id_pro=id).exists():
-#                     return redirect("../")
-#                 else:
-#                     t = request.POST['T']
-#                     sp = request.POST['hidden']
-#                     sp2 = request.POST['hidden2']
-#                     p = sp.replace(",", "")
-#                     p2 = sp2.replace(",", "")
-#                     models.sabad.objects.create(id_user=request.user.id,id_pro=id,T=t,p=p,p2=p2)
-#                     return redirect("../")
-#             else:
-#                 return redirect('/')        
-#         id_use = 0
+    if request.user.username:
+        name = request.user.username
+    else:
+        name = None
+
+    if request.method == "POST":
+          
+        if request.user.is_authenticated:
+            if models.sabad.objects.filter(id_user=request.user.id,id_pro=id).exists():
+                return redirect("../")
+            else:
+                t = request.POST['T']
+                sp = request.POST['hidden']
+                sp2 = request.POST['hidden2']
+                p = sp.replace(",", "")
+                p2 = sp2.replace(",", "")
+                models.sabad.objects.create(id_user=request.user.id,id_pro=id,T=t,p=p,p2=p2)
+                return redirect("../")
+        else:
+            return redirect('/')        
+    id_use = 0
+       
+    if request.user.is_authenticated:
+        id_use = request.user.id
+        name = request.user.username
         
-#         if request.user.is_authenticated:
-#             id_use = request.user.id
-#             name = request.user.username
-        
-#     #################################################################################
-#         sabad = models.sabad.objects.count()
-#         ino = models.interest.objects.count()
-#         saba = models.sabad.objects.all()
-#         category = models.category.objects.all()
-#         product_all = models.Product.objects.all()
-#         return render(request,
-#         "sabad.html",{
-#     "ino":ino,"sabad":sabad,"saba":saba,"category":category,"allp":product_all,"id_use":id_use,"name":name
-#         })
-#     else:
-#         return redirect('/')
+    #################################################################################
+    sabad = models.sabad.objects.count()
+    ino = models.interest.objects.count()
+    saba = models.sabad.objects.all()
+    category = models.category.objects.all()
+    product_all = models.Product.objects.all()
+    return render(request,
+        "cart.html",{
+    "ino":ino,"sabad":sabad,"saba":saba,"category":category,"allp":product_all,"id_use":id_use,"name":name
+        })
+

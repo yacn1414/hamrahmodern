@@ -89,12 +89,15 @@
                                     </div>
                                     <div class="header-profile-dropdown-actions">
                                         <div class="header-profile-dropdown-action-container">
-                                            <span class="header-profile-dropdown-action-link"><a href="/account"> سفارش‌های من</a></span>
+                                            <span class="header-profile-dropdown-action-link"><a href="/cart"> سفارش‌های من</a></span>
                                         </div>
+                                        {% if id_use %}
                                         <div class="header-profile-dropdown-action-container">
+                                            
                                             <span class="header-profile-dropdown-action-link"><a href="/logout">خروج از حساب
                                                 کاربری</a></span>
                                         </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +107,7 @@
                                 <div class="mini-cart-dropdown">
                                     <div class="header-cart-info-header">
                                         <div class="header-cart-info-count">{{sabad}} کالا</div>
-                                        <a href="/sabad" class="header-cart-info-link">
+                                        <a href="/cart" class="header-cart-info-link">
                                             <span>مشاهده سبد خرید</span>
                                         </a>
                                     </div>
@@ -118,9 +121,9 @@
                    {% if prod.id == sabad.id_pro %}
                    
                                                     <li class="js-mini-cart-item">
-                                                        <a href="#" class="header-basket-list-item">
+                                                        <a href="/product/{{prod.name}}" class="header-basket-list-item">
                                                             <div class="header-basket-list-item-image">
-                                                                <img src="{{prod.picture}}" alt="{{prod.name}}">
+                                                                <img src="/ProductImage/{{prod.picture}}" alt="{{prod.name}}">
                                                             </div>
                                                             <div class="header-basket-list-item-content">
                                                                 <h1 class="header-basket-list-item-title" >{{prod.name}}</h1>
@@ -143,7 +146,7 @@
                                                                             {{sabad.color}}
                                                                         </span>
                                                                         <span class="header-basket-list-item-remove">
-                                                                            <i class="mdi mdi-delete"></i>
+                                                                            <a href="/d/{{prod.id}}"></a><i class="mdi mdi-delete"></i>
                                                                         </span>
                                                                     </div>
                                                                 </div>
@@ -164,7 +167,7 @@
                                             <p class="header-cart-info-total-amount">
                                                 {% load custom_tags %}
                                                 <span class="header-cart-info-total-amount-number"> 
-                                                    <!-- {% for jam in jamsabad %}{% if id_use == jam.id_user %}{{jam.jam}}{% endif %}{% endfor %} -->
+                                                   
                                                     {% res id_use %}
 
                                                 </span>

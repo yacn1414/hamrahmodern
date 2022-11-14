@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'Users',
+    'django_cleanup',
     'main',
 ]
 
@@ -119,12 +119,12 @@ USE_TZ = True
 # import os
 STATIC_URL = 'static/'
 STATIC_URL = '/static/'
-# MEDIA_URL = '/main/pic/'
-# MEDIA_URL = '/main/u/'
-# MEDIA_URL = '/ProductImage/'
+MEDIA_URL = '/main/pic/'
+MEDIA_URL = '/main/u/'
+MEDIA_URL = '/ProductImage/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    # BASE_DIR / "main/pic",
+    BASE_DIR / "main/pic",
     
 ]
 

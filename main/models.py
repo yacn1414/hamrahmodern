@@ -1,11 +1,6 @@
-
-
 from django.utils.translation import gettext as _
 from django.contrib.auth.models import User
 from django.db import models
-
-# Create your models here.
-#offer 
 class Offer(models.Model):
     time = models.DateTimeField(_("زمان تخفیف"))
     darsad = models.IntegerField(_("درصد تخفیف"))
@@ -16,7 +11,6 @@ class Offer(models.Model):
         managed = True
         verbose_name = 'تخفیف ها '
         verbose_name_plural = 'تخفیف ها'
-
 class Product(models.Model):
     NUMBERS = [
         ("1", 1),
@@ -50,7 +44,6 @@ class Product(models.Model):
         managed = True
         verbose_name = 'محصولات'
         verbose_name_plural = 'محصولات'
-
 class Userphone(models.Model):
     phone = models.CharField(max_length=11)
     name = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -66,7 +59,6 @@ class Email(models.Model):
     Email = models.EmailField(blank=False,unique=True)
     def __str__(self):
         return str(self.Email)
-# category
 class category(models.Model):
     nameFa = models.CharField(_("اسم "),max_length=255)
     nameEn = models.CharField(_("اسم انگلیسی"),max_length=255)
@@ -74,7 +66,6 @@ class category(models.Model):
         return self.nameEn
 class BrandMobile(models.Model):
     nameEn = models.CharField(_("اسم انگلیسی"),max_length=255)
-
     Tpost = models.IntegerField(_("تعداد پست"),default=0)
     image = models.ImageField(_("عکس "),upload_to="category")
     name = models.CharField(_("اسم "),max_length=255)
@@ -82,8 +73,6 @@ class BrandMobile(models.Model):
     
     def __str__(self):
         return self.name
-
-# image trend 2
 class Image_trend_2(models.Model):
     image1 = models.ImageField(_("عکس اولی"),upload_to="main/pic/1")
     cat1 = models.ForeignKey(category,on_delete=models.CASCADE,related_name="cat1")
@@ -95,9 +84,6 @@ class Image_trend_2(models.Model):
         managed = True
         verbose_name = ' دو عکس ترند'
         verbose_name_plural = 'دو عکس ترند'
-
-# image_under
-
 class image_u(models.Model):
     image = models.ImageField(_("عکس"),upload_to="main/u")
     category = models.ForeignKey(category,on_delete=models.CASCADE)
@@ -109,10 +95,6 @@ class image_u(models.Model):
         managed = True
         verbose_name = 'عکس پایینی'
         verbose_name_plural = 'عکس پایینی'
-
-# Product
-
-
 class interest(models.Model):
     id_pro = models.IntegerField()
     id_user = models.IntegerField(blank=True,null=True)
