@@ -7,6 +7,7 @@ admin.site.site_header = "Mobile modern"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('main.urls')),
+    path('',include('details.urls')),
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
