@@ -31,7 +31,7 @@ def pro(request,string):
     
     pro = Product.objects.get(name=string)
     # prod = Product.objects.all()
-    # saba = sabad.objects.all()
+    saba = sabad.objects.all()
     if request.user.is_authenticated:
         id_use = request.user.id
     else:
@@ -49,9 +49,9 @@ def pro(request,string):
     # buyful = Product.objects.all().order_by('buyers')[:10]
     # commentCount = len(models.comment.objects.filter(Product_id=id))
     if pro:
-        return render(request,"pro.html"
-        ,{"pro":pro,"id_use":id_use,
-    # "category":cate,"allp":prod,"banner":banner,"comcount":commentCount,"comments":co,"sabad":sabad1,"ino":ino,"saba":saba,"buy":buyful
+        return render(request,"product.html"
+        ,{"pro":pro,"id_use":id_use,"saba":saba,
+    # "category":cate,"allp":prod,"banner":banner,"comcount":commentCount,"comments":co,"sabad":sabad1,"ino":ino,"buy":buyful
             }
         )
     else:
