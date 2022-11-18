@@ -25,12 +25,13 @@
                 <span class="account-head-line">ثبت نام در همراه مدرن</span>
                 <div class="content-account">
                     <div class="massege-light">ثبت نام تنها با شماره تلفن همراه امکان پذیر است.</div>
-                    <form action="#" id="register">
+                    <form action="/auth" method="post" id="register">
+                        {% csrf_token %}
                         <label for="email-phone">شماره موبایل خود را وارد کنید</label>
-                        <input type="text" id="email-phone" class="input-email-account" placeholder="">
+                        <input type="text" id="email-phone" name="phone" class="input-email-account" placeholder="">
                       
                         <div class="parent-btn">
-                            <button class="dk-btn dk-btn-info">
+                            <button class="dk-btn dk-btn-info" name="submit" type="submit">
                                 ثبت نام در همراه مدرن
                                 <i class="mdi mdi-account-plus-outline sign-in"></i>
                             </button>

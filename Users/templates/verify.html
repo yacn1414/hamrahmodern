@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fa">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>verify-phone-number</title>
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/materialdesignicons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/materialdesignicons.css.map' %}">
+    <!--    font-->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <div id="main">
+        <div class="col-lg-4 col-md-6 col-xs-12 mx-auto">
+            <div class="account-box">
+                <a href="index.html" class="logo-account"><img src="{% static 'images/logo.png' %}" alt="logo"></a>
+                <div class="message-light">
+                    <div class="massege-light">
+                        برای شماره همراه {{phone}} کد تایید ارسال گردید
+                        <br>
+                        <a href="../" class="form-edit-number">
+                            ویرایش شماره
+                        </a>
+                    </div>
+                    <form action="/verify" method="post">
+                    <div class="form-account">
+                        {% csrf_token %}
+                        <div class="form-account-title">کد تایید را وارد کنید</div>
+                        <div class="form-account-row">
+                            <div class="lines-number-input">
+                                <input type="text" name="code1" class="line-number-account" maxlength="1">
+                                <input type="text" name="code2" class="line-number-account" maxlength="1">
+                                <input type="text" name="code3" class="line-number-account" maxlength="1">
+                                <input type="text" name="code4" class="line-number-account" maxlength="1">
+                                
+                            </div>
+                            <div class="parent-btn">
+                                <button name="taeed" class="dk-btn dk-btn-info" type="submit">
+                                    تایید کد
+                                    <i class="mdi mdi-account-plus-outline sign-in"></i>
+                                </button>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                 
+                </div>
+                <div class="account-footer">
+                    <span>کاربر جدید هستید؟</span>
+                    <a href="/register" class="btn-link-register">ثبت‌نام در همراه مدرن</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/countdown.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>
