@@ -15,4 +15,5 @@ admin.site.register(models.interest)
 admin.site.register(models.contact)
 admin.site.register(models.jamsabad)
 admin.site.register(models.BrandMobile)
+admin.site.register(models.colors)
 

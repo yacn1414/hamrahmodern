@@ -1,6 +1,6 @@
 
 from django.contrib import messages
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from . import models
 # from .forms import Emailc,contactForm
 # Create your views here.
@@ -23,6 +23,7 @@ def main(request):
         
         sabad = len(models.sabad.objects.filter(id_user=request.user.id))
         ino = len(models.interest.objects.filter(id_user=request.user.id))
+
     else:
         sabad = 0
         ino = 0
@@ -34,17 +35,7 @@ def main(request):
             
             
             Offrs += models.Product.objects.filter(name= e)
-    if request.method == "POST":
-        if request.user.is_authenticated:
-            models.contact.objects.create(textmessage=request.POST['message'],username=request.user.username)
-            messages.success(request,"پیام شما در سیستم ثبت شد پس از پاسخ داده شدن به پیام شما در پروفایل کاربری نمایش داده میشود")
-        else:
-            messages.warning(request,".شما لاگین نکردید برای تماس با ما از منو لاگین کنید")
-            redirect('/')
 
-    else:
-        
-        redirect('/')
     
     return render(request,
     "main.html"
@@ -55,7 +46,8 @@ def main(request):
     "ino":ino,"sabad":sabad,
     "saba":saba,"Brands":ABrands,"jamsabad":jamsabad}
     )
-
+def sellers(request):
+    return HttpResponse("به زودی ...")
 
 
 # def search(request):

@@ -5,9 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="icon" type="image/png" href="https://www.digikala.com/mag/wp-content/themes/digikalamag/common/img/ms-icon-144x144.png"> -->
-    <!-- <link rel="apple-touch-icon" sizes="144x144"
-         href="https://www.digikala.com/mag/wp-content/themes/digikalamag/common/img/ms-icon-144x144.png"> -->
+    
     <title>فروشگاه اینترنتی همراه مدرن</title>
     <!--    font-->
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
@@ -20,14 +18,14 @@
 </head>
 
 <body>
-
+         
     <header class="header-main-page">
         <div class="d-block">
             <div>
                 <div class="col-lg-8 col-md-8 col-xs-12 pull-right">
                     <div class="header-right">
                         <div class="logo">
-                            <a href="#"><img src="{% static 'images/logo.png' %}" alt="logo"></a>
+                            <a href="#"><img style="height: 70px;" src="{% static 'images/logo.png' %}" alt="logo"></a>
                         </div>
 
                         <div class="col-lg-8 col-md-12 col-xs-12 pull-right">
@@ -115,48 +113,50 @@
                                         <div class="scrollbar" id="style-1">
                                             <div class="force-overflow">
                                                 <ul class="header-basket-list">
-                   {% if id_use %}
-                   {% for sabad in saba %}
-                   {% for prod in allp %}
-                   {% if prod.id == sabad.id_pro %}
+                    {% for sabad in saba %}
+                    {% if id_use == sabad.id_user %}
+                    {% for prod in allp %}
+                    {% if prod.id == sabad.id_pro %}
                    
-                                                    <li class="js-mini-cart-item">
-                                                        <a href="/product/{{prod.name}}" class="header-basket-list-item">
-                                                            <div class="header-basket-list-item-image">
-                                                                <img src="/ProductImage/{{prod.picture}}" alt="{{prod.name}}">
-                                                            </div>
-                                                            <div class="header-basket-list-item-content">
-                                                                <h1 class="header-basket-list-item-title" >{{prod.name}}</h1>
-                                                                <span
-                                                                    class="header-basket-list-item-shipping-type">{{prod.mojood}}
-                                                                    در
-                                                                    انبار
-                                                                    </span>
-                                                                <div class="header-basket-list-item-footer">
-                                                                    <div class="header-basket-list-item-props">
-                                                                        <span
-                                                                            class="header-basket-list-item-props-item">
-                                                                    {{sabad.T}}
-                                                                            عدد</span>
-                                                                        <span
-                                                                            class="header-basket-list-item-props-item">
-                                                                            <span
-                                                                                class="header-basket-list-item-color-badge"
-                                                                                style="background: #9E9E9E"></span>
-                                                                            {{sabad.color}}
-                                                                        </span>
-                                                                        <span class="header-basket-list-item-remove">
-                                                                            <a href="/d/{{prod.id}}"></a><i class="mdi mdi-delete"></i>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </li>
+                   <li class="js-mini-cart-item">
+                    <a href="/cart" class="header-basket-list-item">
+                        <div class="header-basket-list-item-image">
+                            <img src="/ProductImage/{{prod.picture}} "
+                                alt="img-slider">
+                        </div>
+                        <div class="header-basket-list-item-content">
+                            <h1 class="header-basket-list-item-title">{{prod}}</h1>
+                            <span
+                                class="header-basket-list-item-shipping-type">{{prod.mojood}}
+                                در
+                                انبار
+                                </span>
+                            <div class="header-basket-list-item-footer">
+                                <div class="header-basket-list-item-props">
+                                    <span
+                                        class="header-basket-list-item-props-item">
+                                        {{sabad.T}}
+                                        عدد</span>
+                                    <span
+                                        class="header-basket-list-item-props-item">
+                                        <span
+                                            class="header-basket-list-item-color-badge"
+                                            style="background: {{sabad.color}};"></span>
+                                        {{sabad.color}}
+                                    </span>
+                                    <span class="header-basket-list-item-remove">
+                                        <i class="mdi mdi-delete"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+ 
+                {% endif %}
+                {% endfor %}
                                                     {% endif %}
                                                     {% endfor %}
-                                                    {% endfor %}
-                                                    {% endif %}
                                                 </ul>
                                             </div>
                                         </div>
@@ -223,7 +223,7 @@
         </div>
         <div class="overlay"></div>
         <!--    responsive-megamenu-mobile----------------->
-    </header>
+    </header>                                          
 {% block content %}
 
 {% endblock %}
@@ -247,10 +247,7 @@
                     <span class="item-feature">پشتیبانی 24 ساعته</span>
                 </a>
 
-                <a href="#" class="footer-badge">
-                    <img src="{% static 'images/footer-svg/payment-terms.svg' %}" alt="badge">
-                    <span class="item-feature">پرداخت در منزل</span>
-                </a>
+              
 
                 <a href="#" class="footer-badge">
                     <img src="{% static 'images/footer-svg/return-policy.svg' %}" alt="badge">
@@ -267,33 +264,32 @@
             <div class="middle-bar-footer">
                 <div class="col-lg-6 col-xs-12 pull-right">
                     <div class="footer-links">
-                        <div class="links-col">
-                            <a href="#" class="head-line">راهنمای خرید از دیجی‌استور</a>
+                        <div class="links-col col-4">
+                            <a href="#" class="head-line">راهنمای خرید از همراه مدرن</a>
                             <ul class="links-ul">
-                                <li><a href="#">نحوه ثبت سفارش</a></li>
-                                <li><a href="#">رویه ارسال سفارش</a></li>
-                                <li><a href="#">شیوه‌های پرداخت</a></li>
+                                <li><a href="/help">نحوه ثبت سفارش</a></li>
+                                <li><a href="/help">رویه ارسال سفارش</a></li>
+                                <li><a href="/help">شیوه‌های پرداخت</a></li>
                             </ul>
                         </div>
 
-                        <div class="links-col">
+                        <div class="links-col col-4">
                             <a href="#" class="head-line">خدمات مشتریان</a>
                             <ul class="links-ul">
-                                <li><a href="#">پرسش یه پاسخ های متداول</a></li>
-                                <li><a href="#">رویه های بازگرداندن کالا</a></li>
-                                <li><a href="#">شرایط استفاده</a></li>
-                                <li><a href="#">حریم خصوصی</a></li>
-                                <li><a href="#">گزارش باگ</a></li>
+                                <li><a href="/help">پرسش یه پاسخ های متداول</a></li>
+                                
+                                
+                                <li><a href="https://t.me/yacn_1414">گزارش باگ</a></li>
                             </ul>
                         </div>
 
-                        <div class="links-col">
+                        <div class="links-col col-4">
                             <a href="#" class="head-line">با دیجی استور</a>
                             <ul class="links-ul">
-                                <li><a href="#">اتاق خبر دیجی استور</a></li>
-                                <li><a href="#">فروش در دیجی استور</a></li>
-                                <li><a href="#">فرصت های شغلی</a></li>
-                                <li><a href="#">تماس با دیجی استور</a></li>
+                                
+                                <li><a href="/seller">فروش در همراه مدرن</a></li>
+                                <li><a href="/seller">فرصت های شغلی</a></li>
+                                <li><a href="/contact">تماس با دیجی استور</a></li>
                                 <li><a href="#">درباره ما دیجی استور</a></li>
                             </ul>
                         </div>
@@ -302,25 +298,24 @@
 
                 <div class="col-lg-4 col-xs-12 pull-left">
                     <div class="footer-form">
-                        <span class="newslitter-form">از تخفیف‌ها و جدیدترین‌های دیجی‌استور باخبر
+                        <span class="newslitter-form">از تخفیف‌ها و جدیدترین‌های همراه مدرن باخبر
                             شوید:
                         </span>
 
-                        <form action="#">
+                        <form action="/account#email" method="post">
+                            {% csrf_token %}
                             <input type="text" class="input-footer" placeholder="آدرس ایمیل خود را وارد کنید">
 
-                            <button class="btn-footer-post">ارسال</button>
+                           <button class="btn-footer-post">ارسال</button>
                         </form>
                     </div>
 
                     <div class="footer-social">
-                        <span class="newslitter-form-social">دیجی‌استور را در شبکه‌های اجتماعی دنبال کنید:</span>
+                        <span class="newslitter-form-social">همراه مدرن را در شبکه‌های اجتماعی دنبال کنید:</span>
 
-                        <div class="social-links">
-                            <a href="#"><i class="fa fa-instagram"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-linkedin-square"></i></a>
+                        <div class="social-links" style="margin: auto;">
+                            <a href="https://instagram.com/hamrah_modern"><i class="fa fa-instagram"></i></a>
+                            <a href="https://t.me/hamrah_modern"><i class="fa fa-telegram"></i></a>
                         </div>
                     </div>
                 </div>
@@ -328,68 +323,29 @@
         </div>
 
         <div class="col-12">
-            <div class="footer-address">
-                <div class="footer-contact">
-                    <ul>
-                        <li>هفت روز هفته ، ۲۴ ساعت شبانه‌روز پاسخگوی شما هستیم</li>
-                        <li style="float:right">شماره تماس : <a href="#" class="phone-contact">۶۱۹۳۰۰۰۰ - ۰۲۱ ، ۹۵۱۱۹۰۹۵
-                                - ۰۲۱</a></li>
-                        <li class="email-title">آدرس ایمیل : <a href="#">info@digistore.com</a></li>
-                    </ul>
-                </div>
+            <div class="footer-address" >
+              
 
-                <div class="address-images">
-                    <a href="#">
-                        <img src="{% static 'images/footer-img/1090a120.png' %}" alt="address">
-                        <img src="{% static 'images/footer-img/71abe5c9.png' %}" alt="address">
-                    </a>
-                </div>
+                <li>هفت روز هفته ، ۲۴ ساعت شبانه‌روز پاسخگوی شما هستیم</li>
+
             </div>
         </div>
 
         <div class="more-info">
             <div class="col-12">
                 <div class="about-site">
-                    <h1>فروشگاه اینترنتی دیجی‌استور بررسی، انتخاب و خرید آنلاین</h1>
-                    <p>دیجی‌استور به عنوان یکی از قدیمی‌ترین فروشگاه های اینترنتی با بیش از یک دهه تجربه، با پایبندی به
-                        سه اصل، پرداخت در محل، 7 روز ضمانت بازگشت کالا و تضمین اصل‌بودن کالا موفق شده تا همگام با
-                        فروشگاه‌های معتبر جهان، به بزرگ‌ترین فروشگاه
-                        اینترنتی ایران تبدیل شود. به محض ورود به سایت دیجی‌استور با دنیایی از کالا رو به رو می‌شوید! هر
-                        آنچه که نیاز دارید و به ذهن شما خطور می‌کند در اینجا پیدا خواهید کرد.</p>
-
-                    <div class="footer-inner-box">
-                        <a href="#" class="footer-badge">
-                            <img src="{% static 'images/footer-svg/footer-1.svg' %}" style="width: 130px !important;"
-                                alt="badge">
-                        </a>
-
-                        <a href="#" class="footer-badge">
-                            <img src="{% static 'images/footer-svg/footer-2.svg' %}" style="width: 130px !important;"
-                                alt="badge">
-                        </a>
-
-                        <a href="#" class="footer-badge">
-                            <img src="{% static 'images/footer-svg/footer-3.svg' %}" style="width: 130px !important;"
-                                alt="badge">
-                        </a>
-
-                        <a href="#" class="footer-badge">
-                            <img src="{% static 'images/footer-svg/footer-4.svg' %}" style="width: 130px !important;"
-                                alt="badge">
-                        </a>
-                        <a href="#" class="footer-badge">
-                            <img src="{% static 'images/footer-svg/footer-5.svg' %}" style="width: 130px !important;"
-                                alt="badge">
-                        </a>
+                    <h1>فروشگاه اینترنتی همراه مدرن بررسی، انتخاب و خرید آنلاین</h1>
+                    <div class="footer-contact ">
+                        <ul>
+                            <li style="float:right">شماره تماس : <a href="#" class="phone-contact">  
+                                &nbsp;&nbsp;&nbsp;09149073874
+                                    </a></li>
+                            <li class="email-title">آدرس ایمیل : <a href="#">yacn1214@gmail.com</a></li>
+                        </ul>
                     </div>
                 </div>
 
-                <div class="copy-right-footer">
-                    <p>
-                        استفاده از مطالب فروشگاه اینترنتی دیجی‌استور فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است.
-                        کلیه حقوق این سایت متعلق به شرکت نوآوران فن آوازه (فروشگاه آنلاین دیجی‌استور) می‌باشد.
-                    </p>
-                </div>
+            
             </div>
         </div>
     </footer>
@@ -400,5 +356,6 @@
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/theia-sticky-sidebar.min.js' %}"></script>
 </body>
 </html>

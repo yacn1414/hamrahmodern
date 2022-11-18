@@ -7,6 +7,7 @@ urlpatterns = [
     # path('likes/<id>',views.likes),
     # path('sabad/<id>',views.sabad),
     path('cart/',views.sabad),
+    path('seller/',views.sellers),
 
     
 ]

@@ -10,7 +10,10 @@ class Offer(models.Model):
         db_table = ''
         managed = True
         verbose_name = 'تخفیف ها '
-        verbose_name_plural = 'تخفیف ها'
+
+    
+
+
 class Product(models.Model):
     NUMBERS = [
         ("1", 1),
@@ -21,7 +24,7 @@ class Product(models.Model):
     ]
 
     
-    name = models.CharField(_("اسم محصول"),max_length=255)
+    name = models.CharField(_("اسم محصول"),max_length=255,unique=True)
     price = models.IntegerField(_("قیمت به تومان"))
     picture = models.ImageField(_("عکس نمایشی"),upload_to='ProductImage/picture')
     picture2 = models.ImageField(_("عکس پیش نمایش"),upload_to='ProductImage/picture2')
@@ -35,6 +38,7 @@ class Product(models.Model):
     detail = models.TextField(_("معرفی دقیق"),)
     buyers = models.IntegerField(_("تعداد فروش"),default=0)
     view = models.IntegerField(_("تعداد بازدید"),default=0)
+
     mojood = models.CharField(max_length=20,default="موجود",choices=[("موجود","ناموجود")])
     def __str__(self):
         return str(self.name)
@@ -44,6 +48,25 @@ class Product(models.Model):
         managed = True
         verbose_name = 'محصولات'
         verbose_name_plural = 'محصولات'
+class colors(models.Model):
+    COLOR = [
+        ("white","white"),
+        ("black","black"),
+        ("gray","gray"),
+        ("yellow","yellow"),
+        ("blue","blue"),
+        ("red","red"),
+        ("gold","gold"),
+        ("silwer","silwer"),
+        # ("",""),
+        # ("",""),
+
+    ]
+    color = models.CharField(max_length=255,choices=COLOR)
+    code = models.CharField(max_length=255)
+    phoneid = models.ForeignKey("Product", on_delete=models.CASCADE)
+    def __str__(self):
+        return self.code
 class Userphone(models.Model):
     phone = models.CharField(max_length=11)
     name = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -107,6 +130,7 @@ class sabad(models.Model):
     id_user = models.IntegerField(blank=True,null=True)
     p = models.CharField(max_length=255)
     p2 = models.CharField(max_length=255)
+    color = models.CharField(max_length=255,default="black")
 class jamsabad(models.Model):
     jam = models.IntegerField(blank=True,null=True)
     id_user = models.IntegerField()

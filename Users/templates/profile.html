@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+{% load custom_tags %}
     <div class="nav-categories-overlay"></div>
     <div class="overlay-search-box"></div>
     <!--    responsive-megamenu-mobile----------------->
@@ -8,21 +9,16 @@
     <!--search-category------------------------->
     <div class="col-lg-3 col-md-4 col-xs-12">
         <div class="sidebar-wrapper">
-            <div class="box-sidebar">
-                <div class="profile-box" style="border: none;">
-                    <img src="assets/images/profile/1.jpg" class="profile-box-img-banner" alt="profile">
-                </div>
-            </div>
-
+            
             <div class="box-sidebar">
                 <div class="profile-box">
                     <div class="profile-box-avator">
-                        <img src="assets/images/svg/user-profile.svg" alt="profile">
+                        <img src="{% static 'images/svg/user-profile.svg' %}" alt="profile">
                     </div>
 
                     <div class="profile-box-content">
-                        <span class="profile-box-nameuser">حسن شجاعی</span>
-                        <span class="profile-box-phone">*******0991</span>
+                        <span class="profile-box-nameuser">{{name}}</span>
+                        <span class="profile-box-phone">{{pro.phone}}</span>
                     </div>
 
                     <a href="#" class="profile-box-row-arrow">

@@ -4,8 +4,8 @@ from django.shortcuts import render
 # from django.http import HttpResponseNotFound,JsonResponse
 from django.contrib import messages
 from django.shortcuts import render,redirect
-from . import models
-
+from main import models
+from .models import comment
 from main.models import Product,category,sabad,contact
 
 # Create your views here.
@@ -31,11 +31,15 @@ def pro(request,string):
     
     pro = Product.objects.get(name=string)
     # prod = Product.objects.all()
-    saba = sabad.objects.all()
+
     if request.user.is_authenticated:
         id_use = request.user.id
+        name = request.user.username
+        sabad220 = len(sabad.objects.filter(id_user=request.user.id))
     else:
         id_use = 0
+        name = None
+        sabad220 = 0
     # cate = category.objects.all()
     # if request.user.is_authenticated:
         
@@ -47,12 +51,25 @@ def pro(request,string):
     # co = models.comment.objects.all()
 
     # buyful = Product.objects.all().order_by('buyers')[:10]
-    # commentCount = len(models.comment.objects.filter(Product_id=id))
+    commentCount = len(comment.objects.filter(Product_id=pro.id))
+    ABrands = models.BrandMobile.objects.all()
+    jamsabad = models.jamsabad.objects.all()
+    product_all = models.Product.objects.all()
+    category = models.category.objects.all()
+    saba = models.sabad.objects.all()
+
+    color = models.colors.objects.filter(phoneid=pro.id)
+    brands = models.Brand.objects.all()
+    star = len(pro.star)
     if pro:
         return render(request,"product.html"
-        ,{"pro":pro,"id_use":id_use,"saba":saba,
-    # "category":cate,"allp":prod,"banner":banner,"comcount":commentCount,"comments":co,"sabad":sabad1,"ino":ino,"buy":buyful
-            }
+        ,{"name":name,"id_use":id_use,"colordb":color,
+    "category":category,"allp":product_all,
+    "brand":brands,
+    "sabad":sabad220,
+    "star":star,
+    "lencomment":commentCount,
+    "saba":saba,"Brands":ABrands,"jamsabad":jamsabad,'pro':pro}
         )
     else:
         return HttpResponseNotFound("404") 
