@@ -34,7 +34,8 @@ def auth(request):
         code = randint(4000,5000)
         text = f"{code} کد شما در سایت همراه مدرن از دادن کد خود جز سایت hamrahmodern.com جدا خودداری کنید"
         numberTO= phone
-        response = get(f"https://www.payam-resan.com/APISend.aspx?Username={username}&Password={password}&From={number}&To={numberTO}&Text={text}")
+        # response = get(f"https://www.payam-resan.com/APISend.aspx?Username={username}&Password={password}&From={number}&To={numberTO}&Text={text}")
+        response = 1
         if response:
             user = models.UserCustom.objects.create(phone=phone,code=code)
             return render(request, 'verify.html',{'phone':phone})
@@ -60,15 +61,16 @@ def profile(request):
 def verify(request):
     if request.method == 'POST':
         a = request.POST['code1']+request.POST['code2']+request.POST['code3']+request.POST['code4']
-        if models.UserCustom.objects.get(code=a).exists():
-            models.UserCustom.objects.get(code=a).delete()
-        password = request.POST.get('password','')
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                request.session.set_expiry(86400)
-                login(request, user)
-                return redirect('/account')
-            else:
-                messages.ERROR(request,'مشکلی در ثبت نام وجود دارد')
-                return redirect('/login')
+        if models.UserCustom.objects.filter(code=a).exists():
+            ab = models.UserCustom.objects.get(code=a)
+            ab.code = ""
+            ab.save()
+            return render(request, 'welcome.html')
+        else:
+            redirect('/register')
+def complete(request):
+    return render(request, 'profile-additional-info1.html')
+    if request.method == "POST":
+        pass
+    else:
+        redirect('../')
