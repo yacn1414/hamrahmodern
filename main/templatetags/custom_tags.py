@@ -58,3 +58,13 @@ def nerkhasli(id_use, *args, **kwargs):
         for mm in a:
             ab += int(mm.p2)
         return f"{ab:,}"
+@register.simple_tag
+def jampost(id_use, *args, **kwargs):
+    a = jamsabad.objects.filter(id_user=id_use)
+    count = 0
+    for mmd in a:
+        count += mmd.jam
+    if count:
+        return f"{count+25000:,}"
+    else:
+        return 0

@@ -120,13 +120,19 @@ def sabad(request,id=0):
         name = request.user.username
         
     #################################################################################
-    sabad = models.sabad.objects.count()
+    sabad = models.sabad.objects.filter(id_user=id_use).count()
     ino = models.interest.objects.count()
     saba = models.sabad.objects.all()
     category = models.category.objects.all()
     product_all = models.Product.objects.all()
-    return render(request,
-        "cart.html",{
-    "ino":ino,"sabad":sabad,"saba":saba,"category":category,"allp":product_all,"id_use":id_use,"name":name
-        })
-
+    ABrands = models.BrandMobile.objects.all()
+    if sabad < 0 :
+        return render(request,
+            "cart.html",{
+        "ino":ino,"sabad":sabad,"saba":saba,"category":category,"allp":product_all,"id_use":id_use,"name":name,"Brands":ABrands
+            })
+    else:
+        return render(request,
+            "sabad.html",{
+        "ino":ino,"sabad":sabad,"saba":saba,"category":category,"allp":product_all,"id_use":id_use,"name":name,"Brands":ABrands
+            })

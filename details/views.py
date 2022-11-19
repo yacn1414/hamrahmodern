@@ -1,13 +1,14 @@
 
 
 from django.shortcuts import render
-# from django.http import HttpResponseNotFound,JsonResponse
+from django.http import HttpResponse,JsonResponse
 from django.contrib import messages
 from django.shortcuts import render,redirect
 from main import models
 from .models import comment
 from main.models import Product,category,sabad,contact
-
+def set(request):
+    return HttpResponse(request)
 # Create your views here.
 # def edit(request):
 #     a = {

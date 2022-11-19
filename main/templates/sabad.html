@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% load custom_tags %}
+    <div class="nav-categories-overlay"></div>
+    <div class="overlay-search-box"></div>
+
+    <!--  cart------------------>
+    <div class="col-12">
+        <div class="page-content">
+            <div class="col-lg-4 col-md-4 col-xs-12 pull-right">
+                <div class="checkout-tab">
+                    <div class="checkout-tab-pill listing-active-cart">
+                        سبد خرید
+                        <span class="checkout-tab-counter">{{sabad}}</span>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+        <div class="cart-tab-main">
+            <div class="col-lg-9 col-md-9 col-xs-12 pull-right">
+                <div class="page-content-cart">
+                    <form action="#">
+                        <div class="header-express">
+                            <span class="checkout-header-title"><i class="fa fa-truck"></i>ارسال عادی</span>
+                            <span class="header-extra-info">({{sabad}}
+                                کالا)</span>
+                            <span class="checkout-header-delivery-cost">هزینه ارسال:رایگان</span>
+                        </div>
+                        {% for sabad in saba %}
+                        {% if id_use == sabad.id_user %}
+                        {% for prod in allp %}
+                        {% if prod.id == sabad.id_pro %}
+                       
+                        <div class="checkout-body">
+                            <a href="#" class="remove-from-cart"><i class="mdi mdi-close"></i></a>
+                            <a href="#" class="col-thumb"><img src="/ProductImage/{{prod.picture}}"
+                                    alt="img-slider"></a>
+
+                            <div class="checkout-col-desc" >
+                                <a href="#">
+                                    <h3>{{prod}}</h3>
+                                </a>
+                                <div class="checkout-variant-color" >
+                                    <span class="checkout-variant-title" >{{sabad.color}}</span>
+                                    <div class="checkout-variant-shape" style="background:{{sabad.color}}"></div>
+                                    
+                                </div>
+
+                                <div class="quantity">
+                                    <input type="number" min="1" max="10" step="1" value="1">
+                                </div>
+                                <a href="#" class="add-to-sfl">
+                                    
+                                    <div class="cart-item-product-price">
+                                        {% takhfif prod.price prod.price_offer %}
+                                        <span>
+                                            تومان
+                                        </span>
+                                    </div>
+
+                                </a>
+
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                        {% endfor %}
+                    </form>
+                </div>
+
+                <div class="checkout-to-shipping-sticky">
+                    <a href="#" class="selenium-next-step-shipping">ادامه فرآیند خرید</a>
+                    <div class="checkout-to-shipping-price-report">
+                        <p>مبلغ قابل پرداخت</p>
+                        <div class="cart-item-product-price">
+                            {% jampost id_use %}
+                            <span>
+                                تومان
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-xs-12 pull-left">
+                <div class="page-aside">
+                    <div class="checkout-summary">
+                        <ul class="checkout-summary-summary">
+                            <li>
+                                <span>مبلغ کل ({{sabad}} کالا)</span>
+                                <span>{% res id_use %} تومان</span>
+                            </li>
+                            <li>
+                                <span><i class="fa fa-truck"></i>ارسال عادی</span>
+                                <span>25 هزارتومان</span>
+                            </li>
+                            <li>
+                                <span>جمع</span>
+                                
+                                <span>{% jampost id_use %}</span>
+                            </li>
+                            <li>
+                                <span style="color: #424750; font-size:14px;">هزینه ارسال</span>
+                                <span></span>
+                            </li>
+                            <li>
+                                <span>مبلغ قابل پرداخت</span>
+                                <span>{% jampost id_use %} تومان</span>
+                            </li>
+                      
+                        </ul>
+                    </div>
+                    <div class="checkout-summary-content">
+                        <p>کالاهای موجود در سبد شما ثبت و رزرو نشده‌اند، برای ثبت سفارش مراحل بعدی را تکمیل کنید.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--  cart------------------>
+
+
+    <!--   Footer---------------------------->
+    {% endblock %}

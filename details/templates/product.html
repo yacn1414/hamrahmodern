@@ -234,7 +234,7 @@
                 <div class="product-nav-container">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb px-0">
-                            <li class="breadcrumb-item"><a href="#">فروشگاه اینترنتی دیجی استور</a></li>
+                            <li class="breadcrumb-item"><a href="#">فروشگاه اینترنتی همراه مدرن</a></li>
                             <li class="breadcrumb-item"><a href="#">کالای دیجیتال</a></li>
                             <li class="breadcrumb-item"><a href="#">موبایل</a></li>
                             <li class="breadcrumb-item active" aria-current="page">گوشی موبایل</li>
@@ -370,6 +370,7 @@
                                 </div>
                             </div>
                         </div>
+                    <form action="/set" method="post">
                         <div class="product-attributes">
                             <div class="col-lg-8 col-md-8 col-xs-12 pull-right pr-0">
                                 <div class="product-config">
@@ -406,12 +407,16 @@
                                                     <label class="ui-variant-color">
                                                         <span class="ui-variant-shape"
                                                             style="background-color: {{color.code}}"></span>
-                                                        <input type="radio" value="4" name="color" id="variant"
+                                                        <input name="color" type="radio" value="4" name="color" id="variant"
                                                             class="js-variant-selector" checked="">
                                                         <span class="ui-variant-check"></span>
                                                     </label>
                                                 </li>
                                                 {% endfor %}
+                                                <div class="quantity">
+                                                    <input name='T' type="number" min="1" max="10" step="1" value="1">
+                                                </div>
+                                                
                                             </ul>
                                         </div>
                                         <div class="product-params">
@@ -473,16 +478,17 @@
                                        <br>
                                        <br>
                                        <hr>
-                                            <a href="#" class="btn-add-to-cart">
-                                                <span class="btn-add-to-cart-txt">افزودن
-                                                    به سبد خرید
-                                                </span>
-                                            </a>
+                                            <input type="submit" class='btn-add-to-cart' value='افزودن به سبد خرید'>
+                                                {% comment %} <span class="btn-add-to-cart-txt"></span> {% endcomment %}
+                                                
+                                            {% comment %} </button> {% endcomment %}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        {% csrf_token %}
+                    </form>
                         <div class="product-feature-body">
                             <div class="product-feature">
                                 <div class="row">
