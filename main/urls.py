@@ -8,6 +8,6 @@ urlpatterns = [
     # path('sabad/<id>',views.sabad),
     path('cart/',views.sabad),
     path('seller/',views.sellers),
-
+    path('sabad/<str:id>',views.sabad),
     
 ]

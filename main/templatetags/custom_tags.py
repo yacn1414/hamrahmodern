@@ -1,8 +1,8 @@
 from django.db.models import ExpressionWrapper,F,DecimalField
-
+from django.http import HttpResponse
 from django import template
 
-from ..models import sabad,jamsabad
+from main.models import sabad,jamsabad
 register = template.Library()
 @register.simple_tag
 def takhfif(price, price_offer, *args, **kwargs):
@@ -23,23 +23,27 @@ def jam(price,price_offer, t,*args, **kwargs):
 def format(resualt,*args, **kwargs):
     return f"{resualt:,}"
 @register.simple_tag
-def jam2(id_use, *args, **kwargs):
-    discount_price = ExpressionWrapper(
-        F('p'),output_field=DecimalField()
-    )
-    all = sabad.objects.annotate(
-    discount_price=discount_price
-    )
-    a=0
-    for am in all:
-        a += int(am.p)
-    if id_use:
-        if jamsabad.objects.filter(jam=a).exists():
-            pass
-        else:
-            jamsabad.objects.filter(id_user=id_use).delete()
-            jamsabad.objects.create(jam=a,id_user=id_use)
-    return ""
+def jam3(id_use, *args, **kwargs):
+    a = 0
+    saba = sabad.objects.filter(id_user = id_use)
+    for dataSabad in saba:
+        a += jam2(dataSabad.p2,dataSabad.T)
+    
+    return f"{a:,}"
+@register.simple_tag
+def jam4(id_use, *args, **kwargs):
+    a = 0
+    saba = sabad.objects.filter(id_user = id_use)
+    for dataSabad in saba:
+        a += jam2(dataSabad.p2,dataSabad.T)
+    b = a + 25000
+    return f"{b:,}"
+
+@register.simple_tag
+def jam2(p,t, *args, **kwargs):
+    a = p.replace(",","")
+    res = int(a) * int(t)
+    return int(res)
 @register.simple_tag
 def res(id_use, *args, **kwargs):
     a = jamsabad.objects.filter(id_user=id_use)

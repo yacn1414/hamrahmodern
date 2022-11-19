@@ -7,8 +7,7 @@ from django.shortcuts import render,redirect
 from main import models
 from .models import comment
 from main.models import Product,category,sabad,contact
-def set(request):
-    return HttpResponse(request)
+
 # Create your views here.
 # def edit(request):
 #     a = {
@@ -98,14 +97,16 @@ def pro(request,string):
 
 #     else:
 #         return redirect(f"../pro/{id}")
-# def delete(request,id):
-#     if request.user.is_authenticated:    
-#         a = request.user.id
-#         sabad.objects.filter(id_pro=id,id_user=a).delete()
-#         return redirect("/sabad")
-#     else:
-#         messages.info(request,"شما هنوز عضو سایت نشدید")
-#         redirect("../")
+def delete(request,id):
+    if request.user.is_authenticated:    
+        a = request.user.id
+        res = sabad.objects.filter(id_pro=id,id_user=a).delete()
+        if res !=0:
+            # return redirect("/cart")
+            return HttpResponse(res)
+    else:
+        messages.info(request,"شما هنوز عضو سایت نشدید")
+        redirect("/")
 # def account(request):
     # if request.user.is_authenticated:
     #     id_use = request.user.username
@@ -116,3 +117,4 @@ def pro(request,string):
     #     id_use = None
     #     return redirect('login')
     # return render(request, 'account.html',{"name":id_use,"staff":staff,"fullName":fullname,"phone":phone})
+    

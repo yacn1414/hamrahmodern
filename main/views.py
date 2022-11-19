@@ -105,11 +105,12 @@ def sabad(request,id=0):
                 return redirect("../")
             else:
                 t = request.POST['T']
-                sp = request.POST['hidden']
-                sp2 = request.POST['hidden2']
-                p = sp.replace(",", "")
-                p2 = sp2.replace(",", "")
-                models.sabad.objects.create(id_user=request.user.id,id_pro=id,T=t,p=p,p2=p2)
+                color = request.POST['color']
+                id_pro = request.POST['id']
+                id_user = request.POST['id_user']
+                p = request.POST['p']
+                p2 = request.POST['p2']
+                models.sabad.objects.create(color=color,id_user=id_user,id_pro=id_pro,T=t,p=p,p2=p2)
                 return redirect("../")
         else:
             return redirect('/')        

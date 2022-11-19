@@ -23,6 +23,7 @@
             <div class="col-lg-9 col-md-9 col-xs-12 pull-right">
                 <div class="page-content-cart">
                     <form action="#">
+                        {% csrf_token %}
                         <div class="header-express">
                             <span class="checkout-header-title"><i class="fa fa-truck"></i>ارسال عادی</span>
                             <span class="header-extra-info">({{sabad}}
@@ -35,7 +36,7 @@
                         {% if prod.id == sabad.id_pro %}
                        
                         <div class="checkout-body">
-                            <a href="#" class="remove-from-cart"><i class="mdi mdi-close"></i></a>
+                            <a href="/del/{{sabad.id_pro}}" class="remove-from-cart"><i class="mdi mdi-close"></i></a>
                             <a href="#" class="col-thumb"><img src="/ProductImage/{{prod.picture}}"
                                     alt="img-slider"></a>
 
@@ -50,12 +51,12 @@
                                 </div>
 
                                 <div class="quantity">
-                                    <input type="number" min="1" max="10" step="1" value="1">
+                                    <input type="text" value="{{sabad.T}}" readonly>
                                 </div>
                                 <a href="#" class="add-to-sfl">
                                     
                                     <div class="cart-item-product-price">
-                                        {% takhfif prod.price prod.price_offer %}
+                                        {% jam prod.price prod.price_offer sabad.T %}
                                         <span>
                                             تومان
                                         </span>
@@ -77,7 +78,7 @@
                     <div class="checkout-to-shipping-price-report">
                         <p>مبلغ قابل پرداخت</p>
                         <div class="cart-item-product-price">
-                            {% jampost id_use %}
+                            {% jam4 id_use %}
                             <span>
                                 تومان
                             </span>
@@ -91,7 +92,7 @@
                         <ul class="checkout-summary-summary">
                             <li>
                                 <span>مبلغ کل ({{sabad}} کالا)</span>
-                                <span>{% res id_use %} تومان</span>
+                                <span>{% jam3 id_use %} تومان</span>
                             </li>
                             <li>
                                 <span><i class="fa fa-truck"></i>ارسال عادی</span>
@@ -100,7 +101,7 @@
                             <li>
                                 <span>جمع</span>
                                 
-                                <span>{% jampost id_use %}</span>
+                                <span>{% jam4 id_use %}</span>
                             </li>
                             <li>
                                 <span style="color: #424750; font-size:14px;">هزینه ارسال</span>
@@ -108,7 +109,7 @@
                             </li>
                             <li>
                                 <span>مبلغ قابل پرداخت</span>
-                                <span>{% jampost id_use %} تومان</span>
+                                <span>{% jam4 id_use %} تومان</span>
                             </li>
                       
                         </ul>
