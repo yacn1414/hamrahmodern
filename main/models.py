@@ -67,17 +67,7 @@ class colors(models.Model):
     phoneid = models.ForeignKey("Product", on_delete=models.CASCADE)
     def __str__(self):
         return self.code
-class Userphone(models.Model):
-    phone = models.CharField(max_length=11)
-    name = models.ForeignKey(User,on_delete=models.CASCADE)
-    def __str__(self):
-        return self.name
 
-    class Meta:
-        db_table = ''
-        managed = True
-        verbose_name = 'شماره کاربر‍‍‍'
-        verbose_name_plural = '‍شماره کاربر'
 class Email(models.Model):
     Email = models.EmailField(blank=False,unique=True)
     def __str__(self):
@@ -96,28 +86,7 @@ class BrandMobile(models.Model):
     
     def __str__(self):
         return self.name
-class Image_trend_2(models.Model):
-    image1 = models.ImageField(_("عکس اولی"),upload_to="main/pic/1")
-    cat1 = models.ForeignKey(category,on_delete=models.CASCADE,related_name="cat1")
-    image2 = models.ImageField(_("عکس دومی"),upload_to="main/pic/2")
-    cat2 = models.ForeignKey(category,on_delete=models.CASCADE,related_name="cat2")
 
-    class Meta:
-        db_table = ''
-        managed = True
-        verbose_name = ' دو عکس ترند'
-        verbose_name_plural = 'دو عکس ترند'
-class image_u(models.Model):
-    image = models.ImageField(_("عکس"),upload_to="main/u")
-    category = models.ForeignKey(category,on_delete=models.CASCADE)
-    def __str__(self):
-        return "image"
-
-    class Meta:
-        db_table = ''
-        managed = True
-        verbose_name = 'عکس پایینی'
-        verbose_name_plural = 'عکس پایینی'
 class interest(models.Model):
     id_pro = models.IntegerField()
     id_user = models.IntegerField(blank=True,null=True)
@@ -136,17 +105,7 @@ class jamsabad(models.Model):
     id_user = models.IntegerField()
     # def __str__(self):
     #     return self.jam
-class Brand(models.Model):
-    name = models.CharField(_("نام"),max_length=200)
-    image = models.ImageField(_("عکس برند"),upload_to="brands")
-    
 
-    class Meta:
-        verbose_name = _("brand")
-        verbose_name_plural = _("brands")
-
-    def __str__(self):
-        return self.name
 class contact(models.Model):
     username = models.CharField(max_length=30)
     textmessage = models.TextField()

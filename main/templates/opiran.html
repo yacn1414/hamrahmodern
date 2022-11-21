@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% load custom_tags %}
+
+
+                       
+
+<div class="col-lg-10 col-md-12 col-xs-12 pull-right mt-2">
+    <div class="row">
+        <div class="col-12">
+            <div class="widget widget-product card">
+                <header class="card-header">
+                    <span class="title-one">نتیجه سرچ {{search}}</span>
+                </header>
+                <div class="product-carousel owl-carousel owl-theme owl-rtl owl-loaded owl-drag">
+                    <div class="owl-stage-outer">
+                        <div class="owl-stage"
+                            style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 2234px;">
+
+                            {% for product in context %}
+                            {% comment %} {% if product.name == context %} {% endcomment %}
+                            <div class="owl-item active" style="width: 309.083px; margin-left: 10px;">
+                                <div class="item">
+                                    <a href="/product/{{product}}">
+                                        <img src="/ProductImage/{{product.picture}}" class="img-fluid"
+                                            alt="img-slider">
+                                    </a>
+                                    <h2 class="post-title">
+                                        <a href="/product/{{product}}">
+                                            {{product}}
+                                        </a>
+                                    </h2>
+                                    <div class="price">
+                                        <ins><span> {% takhfif product.price product.price_offer %} <span>تومان</span></span></ins>
+                                    </div>
+                                </div>
+                            </div>
+{% comment %} {% endif %} {% endcomment %}
+{% endfor %}
+
+                         
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

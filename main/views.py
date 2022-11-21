@@ -2,7 +2,7 @@
 from django.contrib import messages
 from django.shortcuts import render,redirect,HttpResponse
 from . import models
-# from .forms import Emailc,contactForm
+from Users.models import UserCustom
 # Create your views here.
 
 def main(request):
@@ -15,8 +15,8 @@ def main(request):
         name = None
     ABrands = models.BrandMobile.objects.all()
     jamsabad = models.jamsabad.objects.all()
-    banner2 = models.Image_trend_2.objects.all()
-    banner = models.image_u.objects.first()
+    
+    
     category = models.category.objects.all()
     product_all = models.Product.objects.all()
     if request.user.is_authenticated:
@@ -28,7 +28,7 @@ def main(request):
         sabad = 0
         ino = 0
     saba = models.sabad.objects.all()
-    brands = models.Brand.objects.all()
+    
     
     for e in models.Product.objects.all():
         if e.price_offer != None:
@@ -40,9 +40,9 @@ def main(request):
     return render(request,
     "main.html"
     ,
-    {"name":name,"data_banner":banner2,"id_use":id_use,"ofpr":Offrs,
+    {"name":name,"id_use":id_use,"ofpr":Offrs,
     "category":category,"allp":product_all,
-    "banner":banner,"brand":brands,
+    
     "ino":ino,"sabad":sabad,
     "saba":saba,"Brands":ABrands,"jamsabad":jamsabad}
     )
@@ -50,46 +50,34 @@ def sellers(request):
     return HttpResponse("به زودی ...")
 
 
-# def search(request):
-#     if request.method == "POST":
-#         search = request.POST['search_cahr']
-#         context = models.Product.objects.filter(name__contains=search)
-#         T = len(context)
-#     else:
-#         context = None
-#         search = ''
-#         T = 0
-#     if request.user.is_authenticated:
-#         sabadcount = models.sabad.objects.count()
-#         ino = models.interest.objects.count()
-#         saba = models.sabad.objects.all()
-#         id_use = request.user.id
-#         name = request.user.username
-#         allp = models.Product.objects.all()
-#     else:
-#         sabadcount = 0
-#         ino = 0
-#         saba = None
-#         id_use = 0
-#         name = None
-#         allp = None
-#     return render(request, 'opiran.html',{"context":context,"search":search,'T':T,
-#     "ino":ino,"sabad":sabadcount,"saba":saba,"id_use":id_use,"name":name,"allp":allp,
-#     })
+def search(request):
+    if request.method == "POST":
+        search = request.POST['search_cahr']
+        context = models.Product.objects.filter(name__contains=search)
+        T = len(context)
+    else:
+        context = None
+        search = ''
+        T = 0
+    if request.user.is_authenticated:
+        sabadcount = models.sabad.objects.count()
+        ino = models.interest.objects.count()
+        saba = models.sabad.objects.all()
+        id_use = request.user.id
+        name = request.user.username
+        allp = models.Product.objects.all()
+    else:
+        sabadcount = 0
+        ino = 0
+        saba = None
+        id_use = 0
+        name = None
+        allp = None
+    return render(request, 'opiran.html',{"context":context,"search":search,'T':T,
+    "ino":ino,"sabad":sabadcount,"saba":saba,"id_use":id_use,"name":name,"allp":allp,
+    })
 
-# def sabadolikes(request):
-#     models.sabad.objects.all()
-#     models.interest.objects.all()
-    
-# def likes(request,id):
-#     if request.user.is_authenticated:
-#         pro = models.Product.objects.get(id=id)
-#         a = request.user.id
-#         models.interest.objects.create(id_user=a,id_pro=pro.id)
-#         return redirect("/likes")
-#     else:
-#         messages.info(request,"شما عضو سایت نشدید")
-#         return redirect('/')
+
 def sabad(request,id=0):
 
 
@@ -111,9 +99,9 @@ def sabad(request,id=0):
                 p = request.POST['p']
                 p2 = request.POST['p2']
                 models.sabad.objects.create(color=color,id_user=id_user,id_pro=id_pro,T=t,p=p,p2=p2)
-                return redirect("../")
+                return redirect("/cart")
         else:
-            return redirect('/')        
+            return redirect('/')
     id_use = 0
        
     if request.user.is_authenticated:
@@ -122,12 +110,12 @@ def sabad(request,id=0):
         
     #################################################################################
     sabad = models.sabad.objects.filter(id_user=id_use).count()
-    ino = models.interest.objects.count()
+    
     saba = models.sabad.objects.all()
     category = models.category.objects.all()
     product_all = models.Product.objects.all()
     ABrands = models.BrandMobile.objects.all()
-    if sabad < 0 :
+    if sabad == 0 :
         return render(request,
             "cart.html",{
         "ino":ino,"sabad":sabad,"saba":saba,"category":category,"allp":product_all,"id_use":id_use,"name":name,"Brands":ABrands
@@ -135,5 +123,18 @@ def sabad(request,id=0):
     else:
         return render(request,
             "sabad.html",{
-        "ino":ino,"sabad":sabad,"saba":saba,"category":category,"allp":product_all,"id_use":id_use,"name":name,"Brands":ABrands
+        "sabad":sabad,"saba":saba,"category":category,"allp":product_all,"id_use":id_use,"name":name,"Brands":ABrands
             })
+def shoping(request):
+    if request.method == 'POST':
+        id_use = request.user.id
+        name = request.user.username
+        user = UserCustom.objects.get(user__id=id_use)
+        sabad = models.sabad.objects.filter(id_user=id_use).count()
+        product_all = models.Product.objects.all()
+        ABrands = models.BrandMobile.objects.all()
+        category = models.category.objects.all()
+        saba = models.sabad.objects.all()
+        return render(request, 'shopping.html',{"user":user,"sabad":sabad,"saba":saba,"category":category,"allp":product_all,"id_use":id_use,"name":name,"Brands":ABrands})
+    else:
+        redirect('/cart')

@@ -8,6 +8,7 @@ urlpatterns = [
     path('login',views.loginUser,name='login'),
     path('authlogin',views.authlogin,name="authlogin"),
     path('profile',views.complete),
+    path('Done',views.Done),
     path('account',views.profile),
     
 ]

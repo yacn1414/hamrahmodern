@@ -33,7 +33,7 @@
                             <div class="search-header search-box">
                                 <form action="/search" method="post">
                                     {% csrf_token %}
-                                    <input type="text" class="header-search-input" name="searchBox" placeholder="جستجو در همراه مدرن...">
+                                    <input type="text" name="search_cahr" class="header-search-input" name="searchBox" placeholder="جستجو در همراه مدرن...">
                                     <button class="btn-search" type="submit"><img src="{% static 'images/search.png' %}"
                                             alt="search"></button>
                                 </form>
@@ -131,7 +131,7 @@
                                     <div class="header-cart-info-total">
                                         <span class="header-cart-info-total-text">مبلغ قابل پرداخت</span>
                                         <p class="header-cart-info-total-amount">
-                                            <span class="header-cart-info-total-amount-number"> {% res id_use %} </span>
+                                            <span class="header-cart-info-total-amount-number"> {% jam3 id_use %} </span>
                                             <span> تومان</span>
                                         </p>
                                     </div>
@@ -750,8 +750,8 @@
                                 
                                 <li><a href="/seller">فروش در همراه مدرن</a></li>
                                 <li><a href="/seller">فرصت های شغلی</a></li>
-                                <li><a href="/contact">تماس با دیجی استور</a></li>
-                                <li><a href="#">درباره ما دیجی استور</a></li>
+                                <li><a href="/contact">تماس با همراه مدرن</a></li>
+                                <li><a href="#">درباره ما </a></li>
                             </ul>
                         </div>
                     </div>
@@ -811,6 +811,7 @@
         </div>
     </footer>
     <!--   Footer---------------------------->
+
     <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/jquery.countdown.min.js' %}"></script>

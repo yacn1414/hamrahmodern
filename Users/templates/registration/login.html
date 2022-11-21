@@ -24,13 +24,14 @@
                 <a href="index.html" class="logo-account"><img src="{% static 'images/logo.png' %}" alt="logo"></a>
                 <span class="account-head-line">ورود به همراه مدرن</span>
                 <div class="content-account">
-                    <form action="#" id="login">
+                    <form action="#" id="login" method="post">
                         <label for="email-phone">شماره موبایل یا پست الکترونیک خود را وارد کنید</label>
-                        <input type="text" id="email-phone" class="input-email-account" placeholder="">
+                        <input type="text" id="email-phone" name="username" class="input-email-account" placeholder="">
                         <a href="password-forget.html" class="account-link-password">رمز خود را فراموش کرده ام</a>
                         <label for="password">رمز عبور</label>
-                        <input type="password" id="password" class="input-password" placeholder="">
+                        <input type="password" name="password" id="password" class="input-password" placeholder="">
                         <div class="parent-btn">
+                            {% csrf_token %}
                             <button class="dk-btn dk-btn-info">
                                 ورود به همراه مدرن
                                 <i class="fa fa-sign-in sign-in"></i>

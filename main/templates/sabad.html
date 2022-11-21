@@ -22,7 +22,7 @@
         <div class="cart-tab-main">
             <div class="col-lg-9 col-md-9 col-xs-12 pull-right">
                 <div class="page-content-cart">
-                    <form action="#">
+                    <form action="/confirm" method="post">
                         {% csrf_token %}
                         <div class="header-express">
                             <span class="checkout-header-title"><i class="fa fa-truck"></i>ارسال عادی</span>
@@ -70,11 +70,10 @@
                         {% endfor %}
                         {% endif %}
                         {% endfor %}
-                    </form>
-                </div>
-
+                    </div>
+                    {% csrf_token %}
                 <div class="checkout-to-shipping-sticky">
-                    <a href="#" class="selenium-next-step-shipping">ادامه فرآیند خرید</a>
+                    <button type="submit" class="selenium-next-step-shipping">ادامه فرآیند خرید</button>
                     <div class="checkout-to-shipping-price-report">
                         <p>مبلغ قابل پرداخت</p>
                         <div class="cart-item-product-price">
@@ -85,6 +84,7 @@
                         </div>
                     </div>
                 </div>
+            </form>
             </div>
             <div class="col-lg-3 col-md-3 col-xs-12 pull-left">
                 <div class="page-aside">
