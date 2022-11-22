@@ -24,7 +24,7 @@
                 <a href="index.html" class="logo-account"><img src="{% static 'images/logo.png' %}" alt="logo"></a>
                 <span class="account-head-line">ورود به همراه مدرن</span>
                 <div class="content-account">
-                    <form action="#" id="login" method="post">
+                    <form action="{% url 'authlogin' %}" id="login" method="post">
                         <label for="email-phone">شماره موبایل یا پست الکترونیک خود را وارد کنید</label>
                         <input type="text" id="email-phone" name="username" class="input-email-account" placeholder="">
                         <a href="password-forget.html" class="account-link-password">رمز خود را فراموش کرده ام</a>

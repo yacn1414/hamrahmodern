@@ -1,5 +1,5 @@
 
-
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 from django.contrib import messages
@@ -13,7 +13,9 @@ from main.models import Product,category,sabad,contact
 def delete_address(request,id):
     if request.user.id == id:
         UserCustom.objects.filter(user__id=id).update(code_post="",fulladdress="")
-        return redirect('/editAdderss')
+        return redirect('/editAddres')
+    else:
+        return redirect('/')
 def categories(request,c):
     Offrs = []
     
@@ -115,22 +117,18 @@ def delete(request,id):
     else:
         messages.info(request,"شما هنوز عضو سایت نشدید")
         redirect("/")
-# def account(request):
-    # if request.user.is_authenticated:
-    #     id_use = request.user.username
-    #     staff = request.user.is_superuser
-    #     fullname = request.user.get_full_name
-    #     phone = UserCustom.objects.get(user__username=id_use)
-    # else:
-    #     id_use = None
-    #     return redirect('login')
-    # return render(request, 'account.html',{"name":id_use,"staff":staff,"fullName":fullname,"phone":phone})
+
 def buy(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated:
         pass
     else:
         return redirect('/')
 def editAddres(request):
+    if request.method == "POST":
+        UserCustom.objects.filter(user__id=request.user.id).update(code_post=request.POST['code_post'],fulladdress=request.POST['address'])
+        User.objects.filter(id=request.user.id).update(first_name=request.POST['name'])
+        return redirect('/editAddres')
+       
     if request.user.is_authenticated:
         id_use = request.user.id
         name = request.user.username
@@ -140,6 +138,8 @@ def editAddres(request):
         ABrands = models.BrandMobile.objects.all()
         category = models.category.objects.all()
         saba = models.sabad.objects.all()
+
+        
         return render(request, 'edit.html',{"user":user,"sabad":sabad,"saba":saba,"category":category,"allp":product_all,"id_use":id_use,"name":name,"Brands":ABrands})
     else:
         return redirect('/')

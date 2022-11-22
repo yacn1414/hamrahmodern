@@ -5,13 +5,35 @@ from django.contrib.auth.models import User
 from django.shortcuts import render,redirect
 from main.models import sabad,BrandMobile,jamsabad,category,Product
 from django.contrib.auth import authenticate, login
-
+from Users.models import UserCustom
+from main.models import sabad,category,BrandMobile
 # Create your views here.
+def sefaresh(request):
+    if request.user.is_authenticated:
+        id_use = request.user.id
+        name = request.user.username
+        user = UserCustom.objects.get(user__id=id_use)
+        sab = sabad.objects.filter(id_user=id_use).count()
+        product_all = Product.objects.all()
+        ABrands = BrandMobile.objects.all()
+        categories = category.objects.all()
+        saba = sabad.objects.all()
+
+        
+        return render(request, 'profile-order.html',{"user":user,"sabad":sab,"saba":saba,"category":categories,"allp":product_all,"id_use":id_use,"name":name,"Brands":ABrands})
+        
 def authlogin(request):
     if request.method == 'POST':
-        username = request.POST.get('username','')
-        password = request.POST.get('password','')
+        username = request.POST['username']
+        password = request.POST['password']
         user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return render(request, 'profile.html')
+            
+        else:
+            return redirect('/login')
+            # No backend authenticated the credentials
         if user is not None:
             if user.is_active:
                 request.session.set_expiry(86400)
@@ -56,10 +78,18 @@ def profile(request):
     if request.user.is_authenticated:
         id_use = request.user.id
         name = request.user.username
+        user = UserCustom.objects.get(user__id=id_use)
+        sab = sabad.objects.filter(id_user=id_use).count()
+        product_all = Product.objects.all()
+        ABrands = BrandMobile.objects.all()
+        categories = category.objects.all()
+        saba = sabad.objects.all()
+
+        
+        return render(request, 'profile.html',{"user":user,"sabad":sab,"saba":saba,"category":categories,"allp":product_all,"id_use":id_use,"name":name,"Brands":ABrands})
+        
     else:
         return redirect('/login')
-    user = models.UserCustom.objects.get(user__id=request.user.id)
-    return render(request, 'profile.html',{"id_use":id_use,"name":name,"pro":user})
 
 def verify(request):
     if request.method == 'POST':
@@ -103,7 +133,7 @@ def Done(request):
         moduser = User.objects.create_user(username=request.POST['name'],email=request.POST['email'],password = request.POST['password'])
         upd = models.UserCustom.objects.filter(phone=request.session['verify']).update(user=moduser)
         if udp is not None:
-            if user.is_active:
+            if upd.is_active:
                 request.session.set_expiry(86400)
                 login(request, user)
                 return redirect('/account')

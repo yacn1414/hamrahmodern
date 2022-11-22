@@ -1,14 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-{% load custom_tags %}
-<div class="nav-categories-overlay"></div>
-<div class="overlay-search-box"></div>
 
-<!--search-category------------------------->
-
-    </div>
-</div>
 <div class="col-lg-9 col-md-8 col-xs-12 pull-right">
     <div class="d-block">
         <div class="profile-content">
@@ -59,86 +52,62 @@
                                 </li>
                                 <li class="location-link">
                                     <a href="#" class="edit-address-link"
-                                        onclick="document.getElementById('modal').style.display='block'">ویرایش
-                                        نشانی</a>
+                                    onclick="document.getElementById('modal').style.display='block'">ویرایش
+                                    نشانی</a>
                                 </li>
                             </ul>
+                        </div>
+                        <a href="/confirm">بازگشت</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 <!--       modal----------------------->
 <div class="remodal-overlay" id="modal">
     <div class="col-lg-8 col-md-8 col-xs-12 mx-auto">
         <div class="remodal">
             <a href="#" class="remodal-close close-profile-address"
-                onclick="document.getElementById('modal').style.display='none'"><i class="fa fa-close"></i></a>
+            onclick="document.getElementById('modal').style.display='none'"><i class="fa fa-close"></i></a>
             <div class="middle-container">
-                <form action="#" class="form-checkout">
-                    <div class="form-checkout-headline">ویرایش آدرس</div>
-                    <div class="form-checkout-row">
-                        <label for="name">نام و نام خانوادگی تحویل گیرنده <span class="required-star"
-                                style="color:red;">*</span></label>
-                        <input type="text" id="name" class="input-name-checkout"
-                            placeholder="نام تحویل گیرنده را وارد نمایید">
-                        <label for="phone-number">شماره موبایل <span class="required-star"
-                                style="color:red;">*</span></label>
-                        <input type="text" id="phone-number" class="input-name-checkout" placeholder="09xxxxxxxxx"
-                            style="text-align:left;">
-                        <label for="fixed-number">شماره تلفن ثابت <span class="required-star"
-                                style="color:red;">*</span></label>
-                        <input type="text" id="fixed-number" class="input-name-checkout" placeholder="021xxxxxx"
-                            style="text-align:left;">
+                <form action="" method="post" class="form-checkout">
+                        
+                        <div class="form-checkout-headline">ویرایش آدرس</div>
+                        <div class="form-checkout-row">
+                            <label for="name">نام و نام خانوادگی تحویل گیرنده <span class="required-star"
+                                    style="color:red;">*</span></label>
+                            <input type="text" name="name" id="name" class="input-name-checkout"
+                                placeholder="{{user.user__first_name}}">
+                            
+                                <label for="name">کد پستی <span class="required-star"
+                                    style="color:red;">*</span></label>
+                            <input type="text" id="code_post" name="code_post" class="input-name-checkout"
+                                placeholder="{{user.code_post}}">
+                            {% csrf_token %}
+                            
 
-                        <div class="form-checkout-valid-row">
-                            <label for="province">استان <span class="required-star"
-                                    style="color:red;"></span></label>
-                            <select name="province" id="province">
-                                <option value="date-desc" selected="selected">شهر مورد نظر خود را انتخاب کنید
-                                </option>
-                                <option value="date-asc">تهران</option>
-                                <option value="rate">مشهد</option>
-                                <option value="views">اصفهان</option>
-                                <option value="comments">شیراز</option>
-                            </select>
-                        </div>
-
-                        <div class="form-checkout-valid-row">
-                            <label for="city">شهر
+                            <label for="address">آدرس
                                 <span class="required-star" style="color:red;">*</span></label>
-                            <select name="city" id="city">
-                                <option value="date-desc" selected="selected">شهر مورد نظر خود را انتخاب کنید
-                                </option>
-                                <option value="date-asc">آشخانه</option>
-                                <option value="rate">شیروان</option>
-                                <option value="views">اسفراین</option>
-                                <option value="comments">جاجرم</option>
-                            </select>
-                        </div>
+                            <input type="text" id="address" name="address" class="input-name-checkout"
+                                placeholder="آدرس کامل خود را وارد نمایید" style="height:80px;">
 
-                        <label for="address">آدرس
-                            <span class="required-star" style="color:red;">*</span></label>
-                        <input type="text" id="address" class="input-name-checkout"
-                            placeholder="آدرس خود را وارد نمایید" style="height:80px;">
-
-                        <div class="form-checkout-valid-row">
-                            <div class="parent-btn">
-                                <button class="dk-btn dk-btn-info">
-                                    ثبت آدرس
-                                    <i class="fa fa-check sign-in"></i>
-                                </button>
+                                <div class="form-checkout-valid-row">
+                                    <div class="parent-btn">
+                                    <button class="dk-btn dk-btn-info">
+                                        ثبت آدرس
+                                        <i class="fa fa-check sign-in"></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
 
-                        <a href="#" class="cancel-edit-address"
-                            onclick="document.getElementById('modal').style.display='none'">انصراف و بازگشت</a>
-                    </div>
-                </form>
+                            <a href="#" class="cancel-edit-address"
+                                onclick="document.getElementById('modal').style.display='none'">انصراف و بازگشت</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    
 {% endblock content %}

@@ -10,5 +10,6 @@ urlpatterns = [
     path('profile',views.complete),
     path('Done',views.Done),
     path('account',views.profile),
+    path('sefaresh',views.sefaresh),
     
 ]

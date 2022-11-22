@@ -126,7 +126,7 @@ def sabad(request,id=0):
         "sabad":sabad,"saba":saba,"category":category,"allp":product_all,"id_use":id_use,"name":name,"Brands":ABrands
             })
 def shoping(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated:
         id_use = request.user.id
         name = request.user.username
         user = UserCustom.objects.get(user__id=id_use)
